@@ -12,7 +12,7 @@ function App() {
 
   } else if (AppMode === 'list') {
     return (<div>
-      <ListFeedback />
+      <ListFeedback setAppMode={setAppMode} />
       <br />
       <button onClick={() => setAppMode('form')}>
         ENVIE UM FEEDBACK

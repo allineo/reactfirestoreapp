@@ -4,6 +4,8 @@ import { saveRegister } from "./services/firestore";
 let feedbackfield = null;
 let namefield = null;
 
+let feedbackItem = {};
+
 function FeedbackForm(props) {
     feedbackfield = useRef(null);
     namefield = useRef(null);
@@ -12,12 +14,12 @@ function FeedbackForm(props) {
         <form onSubmit={saveFeedback}>
             <label>
                 Envie-nos seu feedback, dúvidas ou sugestões:<br />
-                <textarea cols="50" rows="5" ref={feedbackfield} />
+                <textarea cols="50" rows="5" ref={feedbackfield} defaultValue={feedbackItem.message} />
             </label>
             <br /><br />
             <label>
                 Seu contato:<br />
-                <input type="text" ref={namefield} />
+                <input type="text" ref={namefield} defaultValue={feedbackItem.name} />
             </label>
             <br /><br />
             <input type="submit" value="ENVIAR" /> &nbsp; &nbsp;
@@ -27,12 +29,21 @@ function FeedbackForm(props) {
         </form>);
 }
 
-export { FeedbackForm };
+
+function showFeedback(props, item) {
+    feedbackItem = item;
+    props.setAppMode('form');
+}
+
+export { FeedbackForm, showFeedback };
 
 function saveFeedback() {
     const feedback = {
-        message: feedbackfield.current.value,
         name: namefield.current.value,
+        message: feedbackfield.current.value,
+    }
+    if (feedbackItem.id != null) {
+        feedback.id = feedbackItem.id;
     }
     saveRegister(feedback);
 }

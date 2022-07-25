@@ -13,9 +13,9 @@ const db = getFirestore(app);
 
 let feedbackListArray = [];
 
-async function saveRegister(feedback) {
-    if (feedback.id != null) {
-        await updateDoc(doc(db, "feedback", feedback.id), feedback);
+async function saveRegister(feedback, id) {
+    if (id != null) {
+        await updateDoc(doc(db, "feedback", id), feedback);
     } else {
         let id = await addDoc(collection(db, "feedback"), feedback);
         feedback.id = id;

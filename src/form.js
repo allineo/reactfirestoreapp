@@ -42,8 +42,5 @@ function saveFeedback() {
         name: namefield.current.value,
         message: feedbackfield.current.value,
     }
-    if (feedbackItem.id != null) {
-        feedback.id = feedbackItem.id;
-    }
-    saveRegister(feedback);
+    saveRegister(feedback, feedbackItem.id);
 }
